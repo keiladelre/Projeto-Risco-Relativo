@@ -24,9 +24,29 @@ SQL no BigQuery e Python no Google Colab.
 ## Base de dados utilizadas:
 
 Os dados estão divididos em 4 tabelas:
-- Dados do usuário/ cliente.
-- Dados do tipo de empréstimo.
-- Comportamento de pagamento desses empréstimos.
-- Informação dos clientes já identificados como inadimplentes.
 
+![Arquivos_base de dados](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/b2e593c7-0ebf-4d30-91e4-1b6ceb5bc896)
+
+- Dados do usuário/ cliente.
+  
+  ![Campos_tabela 1](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/581dd14a-ada9-41f6-8911-f25de92c6ddf)
+
+- Dados do tipo de empréstimo.
+  
+![Campos_tabela 2](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/e73b37cc-f617-4129-9c75-deb353990504)
+ 
+- Comportamento de pagamento desses empréstimos.
+  
+![Campos_tabela 3](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/c5262b36-fbd1-460c-a906-b8b0f544b161)
+
+- Informação dos clientes já identificados como inadimplentes.
+  
+![Campos tabela 4](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/fc871396-2233-42c1-bccd-ac6b024f5142)
+
+
+## Processar e preparar a base de dados:
+
+- Conectar/ importar dados para a ferramenta.
+
+Após baixar os 4 arquivos .csv, importei os arquivos para o Google BigQuery, criando uma tabela para cada arquivo:
 
