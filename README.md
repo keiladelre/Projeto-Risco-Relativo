@@ -52,5 +52,61 @@ Após baixar os 4 arquivos .csv, importei os arquivos para o Google BigQuery, cr
 
 ![Tabelas BigQuery](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/39a23ffa-100c-45ac-a6bd-b50ca8e0e7b4)
 
+- Identificar e tratar nulos.
+
+Identifiquei nulos com o comando abaixo:
+
+```sql
+--Não foram encontrados valores nulos na tabela default, para os campos user_id e default_flag--
+
+SELECT *
+FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.default
+ 
+WHERE
+  default_flag IS NULL
+````
+
+Para consultar as outras 3 tabelas alterei o comando para trazer a consulta de todas as colunas da tabela de uma única vez:
+
+```sql
+-- Não foram encontrados valores nulos para a tabela loans_detail--
+
+  SELECT 
+  SUM(CASE WHEN user_id IS NULL THEN 1 ELSE 0 END) AS user_id_nulls,
+  SUM(CASE WHEN more_90_days_overdue IS NULL THEN 1 ELSE 0 END) AS more_90_days_overdue_nulls,
+  SUM(CASE WHEN using_lines_not_secured_personal_assets IS NULL THEN 1 ELSE 0 END) AS using_lines_not_secured_personal_assets_nulls,
+  SUM(CASE WHEN number_times_delayed_payment_loan_30_59_days IS NULL THEN 1 ELSE 0 END) AS number_times_delayed_payment_loan_30_59_days_nulls,
+  SUM(CASE WHEN debt_ratio IS NULL THEN 1 ELSE 0 END) AS debt_ratio_nulls,
+  SUM(CASE WHEN number_times_delayed_payment_loan_60_89_days IS NULL THEN 1 ELSE 0 END) AS number_times_delayed_payment_loan_60_89_days_nulls
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_detail`;
+```
+![Consulta Nulos](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/910bac76-6399-4446-904b-070c2381bc32)
+
+```sql
+ -- Consulta valores nulos para a tabela loans_outstanding--
+
+SELECT 
+  SUM(CASE WHEN loan_id IS NULL THEN 1 ELSE 0 END) AS loan_id_nulls,
+  SUM(CASE WHEN user_id IS NULL THEN 1 ELSE 0 END) AS user_id_nulls,
+  SUM(CASE WHEN loan_type IS NULL THEN 1 ELSE 0 END) AS loan_type_nulls
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`;
+```
+![Consulta nulos 2](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/695c7b66-dbf9-41f6-9411-a41152b0a46d)
+
+```sql
+ -- Consulta valores nulos para a tabela user_info, encontrados 7199 campos nulos na coluna último mês de salário e 943 campos nulos na coluna número de dependentes__
+
+SELECT 
+  SUM(CASE WHEN user_id IS NULL THEN 1 ELSE 0 END) AS user_id_nulls,
+  SUM(CASE WHEN age IS NULL THEN 1 ELSE 0 END) AS age_nulls,
+  SUM(CASE WHEN sex IS NULL THEN 1 ELSE 0 END) AS sex_nulls,
+  SUM(CASE WHEN last_month_salary IS NULL THEN 1 ELSE 0 END) AS last_month_salary_nulls,
+  SUM(CASE WHEN number_dependents IS NULL THEN 1 ELSE 0 END) AS number_dependents_nulls
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
+```
+![Consulta nulos 3](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/4ba7b6de-6c40-45a0-8dda-620982b49e3a)
 
 
