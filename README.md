@@ -54,7 +54,7 @@ Após baixar os 4 arquivos .csv, importei os arquivos para o Google BigQuery, cr
 
 - Identificar e tratar nulos.
 
-Identifiquei nulos com o comando abaixo:
+- Identificar nulos.
 
 ```sql
 --Não foram encontrados valores nulos na tabela default, para os campos user_id e default_flag--
@@ -109,4 +109,56 @@ FROM
 ```
 ![Consulta nulos 3](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/4ba7b6de-6c40-45a0-8dda-620982b49e3a)
 
+- Identificar duplicados.
 
+```sql
+--Identificar valores duplicados na tabela default, para os campos user_id, não foram encontrados valores duplicados__
+
+SELECT
+  user_id,
+  COUNT (*) AS quantidade
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.default`
+GROUP BY
+  user_id
+HAVING
+  COUNT (*)>1
+
+
+  --Identificar valores duplicados na tabela loans_detail, para os campos user_id, não foram encontrados valores duplicados__
+
+SELECT
+  user_id,
+  COUNT (*) AS quantidade
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_detail`
+GROUP BY
+  user_id
+HAVING
+  COUNT (*)>1
+
+  
+  --Identificar valores duplicados na tabela loans_outstanding, para os campos loan_id, pois o user_id irá se repetir para clientes que já pagaram mais de uma parcela do empréstimo, e a verificação de duplicados na coluna loan_id é para garantir que um mesmo empréstimo não tenha sido computado duas vezes, não foram encontrados valores duplicados__
+
+SELECT
+  loan_id,
+  COUNT (*) AS quantidade
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`
+GROUP BY
+  loan_id
+HAVING
+  COUNT (*)>1
+
+    --Identificar valores duplicados na tabela luser_info, não foram encontrados valores duplicados__
+
+SELECT
+  user_id,
+  COUNT (*) AS quantidade
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`
+GROUP BY
+  user_id
+HAVING
+  COUNT (*)>1
+```
