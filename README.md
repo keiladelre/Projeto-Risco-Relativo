@@ -54,8 +54,6 @@ Após baixar os 4 arquivos .csv, importei os arquivos para o Google BigQuery, cr
 
 - Identificar e tratar nulos.
 
-- Identificar nulos.
-
 ```sql
 --Não foram encontrados valores nulos na tabela default, para os campos user_id e default_flag--
 
@@ -96,7 +94,7 @@ FROM
 ![Consulta nulos 2](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/695c7b66-dbf9-41f6-9411-a41152b0a46d)
 
 ```sql
- -- Consulta valores nulos para a tabela user_info, encontrados 7199 campos nulos na coluna último mês de salário e 943 campos nulos na coluna número de dependentes__
+ -- Consulta valores nulos para a tabela user_info, encontrados 7199 campos nulos na coluna último mês de salário e 943 campos nulos na coluna número de dependentes--
 
 SELECT 
   SUM(CASE WHEN user_id IS NULL THEN 1 ELSE 0 END) AS user_id_nulls,
