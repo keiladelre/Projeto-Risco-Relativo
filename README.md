@@ -160,3 +160,36 @@ GROUP BY
 HAVING
   COUNT (*)>1
 ```
+
+- Analisado os 7199 campos nulos da coluna last_month_salary para entender quantos deles possui flag de mal pagador, por meio de um LEFT JOIN das tabelas: user.info e default:
+
+```sql
+-- verificar a flag para os casos de valor nulo no campo last_month_salary___
+SELECT 
+  t1.*, 
+  t2.default_flag
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info` t1
+LEFT JOIN 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.default` t2
+ON 
+  t1.user_id = t2.user_id;
+
+
+--Contar quantos campos com valor nulo no campo last_month_salary possui flag 0 (bom pagador e flag 1 mal pagador)--
+SELECT 
+  SUM(CASE WHEN d.default_flag = 1 THEN 1 ELSE 0 END) AS count_default_flag_1,
+  SUM(CASE WHEN d.default_flag = 0 THEN 1 ELSE 0 END) AS count_default_flag_0
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.default` d
+LEFT JOIN 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info` ui
+ON 
+  ui.user_id = d.user_id
+WHERE 
+  ui.last_month_salary IS NULL;
+```
+Encontrado o seguinte resultado:
+
+![Análise campos nulos e flag de mau pagador](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/8a1f9a5b-6e13-4b62-9295-53d408a6b706)
+
