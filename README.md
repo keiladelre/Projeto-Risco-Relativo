@@ -21,3 +21,12 @@ Google Looker Studio: ferramenta para criação e edição de painéis e relató
 
 SQL no BigQuery e Python no Google Colab.
 
+## Base de dados utilizadas:
+
+Os dados estão divididos em 4 tabelas:
+- Dados do usuário/ cliente.
+- Dados do tipo de empréstimo.
+- Comportamento de pagamento desses empréstimos.
+- Informação dos clientes já identificados como inadimplentes.
+
+
