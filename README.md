@@ -193,3 +193,167 @@ Encontrado o seguinte resultado:
 
 ![Análise campos nulos e flag de mau pagador](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/8a1f9a5b-6e13-4b62-9295-53d408a6b706)
 
+- Identificar e gerenciar dados fora do escopo da análise.
+
+Realizado o teste de correlação entre as variáveis da tabela loans_detail que possui as informações de atraso no pagamento de parcelas com período entre 30 e 59 dias, 60 a 89 dias e 90 dias de atraso. Foi encontrada uma alta correlação entre essas três variáveis, por esse motivo utilizarei apenas a variável 90 dias de atraso.
+
+```sql
+--Testar as correlações entre as variáveis de tempo de atraso no pagamento das parcelas de empréstimo--
+SELECT
+CORR(more_90_days_overdue,number_times_delayed_payment_loan_60_89_days) AS corr_90_days_60_89_day,
+CORR(more_90_days_overdue,number_times_delayed_payment_loan_30_59_days) AS corr_90_days_30_59_day,
+CORR(number_times_delayed_payment_loan_60_89_days,number_times_delayed_payment_loan_30_59_days) AS corr_89_days_30_59_day
+FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_detail`
+```
+Resultado da Consulta:
+
+![Teste de correlação](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/c4b1e04b-0307-4ce7-9c48-8460e7fb541a)
+
+Realizado teste de correlação das variáveis de pagamento de parcela do empréstimo com período entre 30 e 59 dias, 60 a 89 dias e 90 dias de atraso e a defaul_flag que indica se um ciente já este na lista de inadimplentes ou não, e a correlação foi baixa.
+
+```sql
+--Testar as correlações entre as variáveis de tempo de atraso no pagamento das parcelas de empréstimo e a flag de cliete inadimplente--
+
+SELECT
+  CORR(t1.more_90_days_overdue, t2.default_flag) AS corr_default_flag_90_days,
+  CORR(t1.number_times_delayed_payment_loan_30_59_days, t2.default_flag) AS corr_default_flag_30_59_days,
+  CORR(t1.number_times_delayed_payment_loan_60_89_days, t2.default_flag) AS corr_default_flag_60_89_days
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_detail` t1
+JOIN 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.default` t2
+ON 
+  t1.user_id = t2.user_id;
+```
+
+Resultado da Consulta:
+
+![Teste de correlação 2](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/b13adeb8-5d70-4e8c-bd4d-355b12784de1)
+
+- Identificar e tratar dados inconsistentes em variáveis ​​categóricas.
+
+Dentre as 4 tabelas utilizadas no projeto temos apenas a tabela loans_outstanding com a variável string loan_type e a tabela user_info com a variável string sex.
+Verifiquei com o comando abaixo a contagem dos tipos de cada uma delas.
+
+```sql
+--Verificar se existe alguma inconsistência em cariável categórica--
+SELECT 
+  loan_type, 
+  COUNT(*)
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`
+GROUP BY 
+  loan_type
+HAVING 
+  COUNT(*) > 1
+ORDER BY 
+  loan_type;
+```
+E obtive o seguinte resultado:
+
+![Variáveis categóricas](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/9c4daf13-d553-4309-a447-9f228b8cfa26)
+
+Totalizou 305.330 linhas, mas a tabela possui 305.335, faltando 5 linhas.
+
+```sql
+--Verificar se existe alguma inconsistência em variável categórica--
+SELECT 
+  sex, 
+  COUNT(*)
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`
+GROUP BY 
+  sex
+HAVING 
+  COUNT(*) > 1
+ORDER BY 
+  sex;
+```
+E obtive o seguinte resultado:
+
+![Variáveis categóricas 2](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/c46188ed-3c18-4fcc-84df-6ea5a437c083)
+
+Totalizando as 36000 linhas da tabela original.
+
+Para resolver os 5 valores inconsistentes utilizei o comando abaixo para padronizar os campos com letras minúsculas, e  contar novamente a coluna loan_type.
+
+```sql
+--Padronizar a coluna loan_type para que todos os campos contenham letras minúsculas, e contar novamente a coluna  loan_type pra verificar se totaliza as 305.335 linhas da tabela__
+
+  SELECT 
+  loan_type_padronizada,
+  COUNT(*) AS quantidade
+FROM 
+  (SELECT
+    loan_id,
+    user_id,
+    loan_type,
+    LOWER(loan_type) AS loan_type_padronizada
+  FROM
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`) AS subconsulta
+GROUP BY 
+  loan_type_padronizada
+ORDER BY 
+  quantidade DESC;
+  ```
+
+E obtive esse resultado:
+
+![Variáveis categóricas alterando para letra minúscula](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/2919c78b-cdfb-4cbe-b7ed-bc8d58ce0c17)
+
+Apareceram as 305.335 linhas mas uma inconsistência com a palavra others, alterei para others com o comando abaixo:
+
+```sql
+--Alterar a palavra others para other__
+
+SELECT 
+  CASE 
+    WHEN loan_type_padronizada = 'others' THEN 'other'
+    ELSE loan_type_padronizada 
+  END AS loan_type_padronizada_corrigida,
+  COUNT(*) AS quantidade
+FROM 
+  (SELECT
+    loan_id,
+    user_id,
+    loan_type,
+    LOWER(loan_type) AS loan_type_padronizada
+  FROM
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`) AS subconsulta
+GROUP BY 
+  loan_type_padronizada_corrigida
+ORDER BY 
+  quantidade DESC;
+```
+
+E obtive o resultado com as 305.335 linhas:
+
+![Alterando others para other](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/11801cb7-4e54-4d5e-a4b3-2a164f9ad2aa)
+
+
+Crie a nova tabela loans_outstanding_padronizada com os dados padronizados.
+
+
+```sql
+--Criar tabela loans_outstanding com essas dados da coluna loan_type corrigidos--
+
+CREATE TABLE
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding_padronizada` AS
+SELECT
+  loan_id,
+  user_id,
+  CASE 
+    WHEN LOWER(loan_type) = 'others' THEN 'other'
+    ELSE LOWER(loan_type) 
+  END AS loan_type_padronizada
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`;
+```
+
+
+
+
+
+
+
+
