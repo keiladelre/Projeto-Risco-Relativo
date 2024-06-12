@@ -350,6 +350,46 @@ FROM
   `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding`;
 ```
 
+-  Identificar e tratar dados discrepantes em variáveis ​​numéricas
+
+Utilizei o comando abaixo para verificar outliers nas variáveis idade e último salário informado.
+
+```sql
+--Identificar e tratar dados discrepantes em variáveis ​​numéricas--
+
+SELECT
+  MAX (age),
+  MIN (age),
+  AVG (age),
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`
+
+```
+
+Resultado obtido:
+
+![Identificando Outliers](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/89025c12-7f46-4501-bc68-dce62e950383)
+
+
+```sql
+-- Identificando outiliers para o último salário informado--
+
+  SELECT
+  MAX (last_month_salary),
+  MIN (last_month_salary),
+  AVG (last_month_salary),
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`
+```
+
+Resultado obtido:
+
+![Identificando Outliers 2](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/954db46b-f269-41cb-a4f6-b18797b51ffe)
+
+A partir desse resultado, onde aparece um salário de R$ 1.560.100 pensei sobre a possibilidade de se tratar de uma empresa e não pessoa física.
+
+(verificar os outros dados desse outlier como idade e sexo)
+
 
 
 
