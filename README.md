@@ -388,7 +388,41 @@ Resultado obtido:
 
 A partir desse resultado, onde aparece um salário de R$ 1.560.100 pensei sobre a possibilidade de se tratar de uma empresa e não pessoa física.
 
-(verificar os outros dados desse outlier como idade e sexo)
+```sql
+--Identificar qual a idade e sexo do outlier de último salário informado--
+
+   WITH salary_stats AS (
+  SELECT
+    MAX(last_month_salary) AS max_salary,
+    MIN(last_month_salary) AS min_salary,
+    AVG(last_month_salary) AS avg_salary
+  FROM
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`
+),
+max_salary_details AS (
+  SELECT
+    age,
+    sex,
+    last_month_salary
+  FROM
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`
+  WHERE
+    last_month_salary = (SELECT max_salary FROM salary_stats)
+)
+SELECT
+  max_salary_details.*,
+  salary_stats.max_salary,
+  salary_stats.min_salary,
+  salary_stats.avg_salary
+FROM
+  max_salary_details,
+  salary_stats;
+```
+
+E o resultado obtido foi:
+
+![dados do outlier](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/285af331-196c-4369-b174-7b948eda296d)
+
 
 
 
