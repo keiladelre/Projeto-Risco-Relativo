@@ -423,6 +423,30 @@ E o resultado obtido foi:
 
 ![dados do outlier](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/285af331-196c-4369-b174-7b948eda296d)
 
+Nesse caso essa informação pode estar com erro de digitação ou ter como representante da empresa uma mulher com idade de 44 anos, em qualquer que for o caso acrdito ser melhor deixar a variável e não alterar os dados, deixando apenas essa observação para uma análise mais detalhada do colaborador que for realiar a análise de liberação de crédito.
+
+- Verificar e alterar o tipo de dados.
+
+  ```sql
+  SELECT
+  CAST(last_month_salary AS INT64) AS last_month_salary_integer
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
+  ```
+- Criar uma tabela com a nova coluna last_month_salary_integer
+
+--Criando uma nova tabela com a coluna last_month_salary_integer--
+--MAS POR QUE PRECISEI FAZER ESSA ALTERAÇÃO NESSA COLUNA ? FIZ NESSA POIS ERA A UNICA FLOAT QUE NÃO TEM PROBLEMA ARREDONDAR AS CASAS DECIMAIS--
+
+CREATE TABLE `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info_new` AS
+SELECT
+  user_id,
+  age,
+  sex,
+  number_dependents,
+  CAST(last_month_salary AS INT64) AS last_month_salary_integer,
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
 
 
 
