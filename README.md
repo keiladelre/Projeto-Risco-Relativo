@@ -448,7 +448,8 @@ SELECT
 FROM
   `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
 
-
+- Criar novas variáveis.
+contagem de tipo de empréstimo e total de empréstimo, comando Marianela.
 
 
 
