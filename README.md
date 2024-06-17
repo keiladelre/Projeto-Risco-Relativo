@@ -485,7 +485,7 @@ A contagem totalizou os 305.335 empréstimos assim como na tabela loans_outstand
 
 - Unir tabelas.
 
-Para passar para a próxima fase de explotração dos dados, é necessário unir as tabelas, user_info_new, loans_detail, loans_outstanding_new e default: 
+Para passar para a próxima fase de análise exploratória dos dados, é necessário unir as tabelas: user_info_new, loans_detail, loans_outstanding_new e default: 
 
 
 ```sql
@@ -555,4 +555,52 @@ ON
     t1.user_id = t4.user_id;  
 ```
 
+## Fazer uma análise exploratória:
 
+- Agrupar dados de acordo com variáveis ​​categóricas.
+
+Use tabelas no Looker Studio para resumir dados em variáveis ​​categóricas.
+
+
+- Ver variáveis ​​categóricas
+  
+Use gráficos de barras no Looker Studio para visualizar variáveis ​​categóricas.
+
+
+- Aplicar medidas de tendência central (moda, média, mediana)
+  
+Use as opções da tabela para calcular estatísticas descritivas para ajudar a compreender a distribuição dos dados.
+
+
+- Ver distribuição
+  
+Use histograma ou boxplot no LookerStudio para exibir variáveis ​​numéricas.
+
+
+-Calcular quartis, decis ou percentis
+
+Calcular quartis para variáveis ​​de risco relativo no BigQuery
+
+-Calcular correlação entre variáveis ​​numéricas
+
+Compreender a relação que existe entre variáveis ​​numéricas através de correlações. Use gráficos de dispersão e linhas de tendência. Você também pode usar o comando CORR no BigQuery
+
+## Aplicar técnica de análise:
+
+-Calcular risco relativo
+
+Calcule o risco relativo em cada grupo (Mau pagador, Bom pagador) de cada variável em relação à variável “inadimplência”.
+
+
+-Validar hipótese
+
+Nos grupos encontrados, valide a hipótese de quais apresentam risco relativo diferente.
+
+
+1 - Os mais jovens correm um risco maior de não pagamento?
+
+2 - Pessoas com mais empréstimos ativos correm maior risco de serem maus pagadores.?
+
+3 - Pessoas que atrasaram seus pagamentos por mais de 90 dias correm maior risco de serem maus pagadores.
+
+Após validar as hipóteses de acordo com o resultado do cálculo do risco relativo, construa uma tabela com os grupos de cada variável que apresenta maior risco de ser um mau pagador
