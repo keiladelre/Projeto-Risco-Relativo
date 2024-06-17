@@ -449,8 +449,110 @@ FROM
   `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
 
 - Criar novas variáveis.
-contagem de tipo de empréstimo e total de empréstimo, comando Marianela.
+
+Na nova tabela loans_outstanding_padronizada realizei um código para  somar os tipos de empréstimo de cada user_id, para que seja possível unir as tabelas posterioemente e totalizar as 36000 linhas, que refletem os 36000 clientes dessa base de dados.
+
+```sql
+--Na nova tabela loans_outstanding_padronizada somar os tipos de empréstimo de cada user_id, para que seja possível unir as tabelas posterioemente e totalizar as 36000 linhas, que refletem os 36000 clientes dessa base de dados--
+
+SELECT
+  user_id,
+  SUM(CASE WHEN loan_type_padronizada = 'real estate' THEN 1 ELSE 0 END) AS loan_type_real_estate,
+  SUM(CASE WHEN loan_type_padronizada = 'other' THEN 1 ELSE 0 END) AS loan_type_other,
+  COUNT(*) AS total_loans
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding_padronizada`
+GROUP BY
+  user_id
+ORDER BY
+  user_id;
+
+--Testando para verificar se vieram todos os empréstimos__
+
+SELECT
+  SUM(CASE WHEN loan_type_padronizada = 'real estate' THEN 1 ELSE 0 END) AS total_loan_type_real_estate,
+  SUM(CASE WHEN loan_type_padronizada = 'other' THEN 1 ELSE 0 END) AS total_loan_type_other,
+  COUNT(*) AS total_loans
+FROM
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding_padronizada`;
+```
+
+Obtive o seguinte resultado:
+
+![Criando novas variáveis](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/a36f057c-3dbe-4e6a-8321-62c37e9b230f)
+
+A contagem totalizou os 305.335 empréstimos assim como na tabela loans_outstanding_padronizada
+
+- Unir tabelas.
+
+Para passar para a próxima fase de explotração dos dados, é necessário unir as tabelas, user_info_new, loans_detail, loans_outstanding_new e default: 
 
 
+```sql
+--Unindo as tabelas--
+
+SELECT 
+    t1.*, 
+    t2.more_90_days_overdue,
+    t2.using_lines_not_secured_personal_assets,
+    t2.number_times_delayed_payment_loan_30_59_days,
+    t2.debt_ratio,
+    t2.number_times_delayed_payment_loan_60_89_days,
+    t3.loan_type_real_estate,
+    t3.loan_type_other,
+    t3.total_loans,
+    t4.default_flag
+FROM 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info_new` t1
+LEFT JOIN 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_detail` t2 
+ON 
+    t1.user_id = t2.user_id
+LEFT JOIN 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding_new` t3 
+ON 
+    t1.user_id = t3.user_id
+LEFT JOIN 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.default` t4 
+ON 
+    t1.user_id = t4.user_id;
+```
+
+Verifiquei com ficaram as colunas, e identifiquei que as novas colunas: loan_type_real_estate, loan_type_other e total_loans, ficaram com alguns cmapos nullos, dessa forma entendo que alguns clientes não possuem empréstimo junto ao banco.
+
+![Unindo tabelas](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/d6329194-9a04-454a-b46a-368415227522)
+
+Em seguida criei a nova tabela com o nome uniao_tabelas:
+
+```sql
+--Criar nova tabela com nome uniao_tabelas--
+
+  CREATE TABLE `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS
+SELECT 
+    t1.*, 
+    t2.more_90_days_overdue,
+    t2.using_lines_not_secured_personal_assets,
+    t2.number_times_delayed_payment_loan_30_59_days,
+    t2.debt_ratio,
+    t2.number_times_delayed_payment_loan_60_89_days,
+    t3.loan_type_real_estate,
+    t3.loan_type_other,
+    t3.total_loans,
+    t4.default_flag
+FROM 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info_new` t1
+LEFT JOIN 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_detail` t2 
+ON 
+    t1.user_id = t2.user_id
+LEFT JOIN 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.loans_outstanding_new` t3 
+ON 
+    t1.user_id = t3.user_id
+LEFT JOIN 
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.default` t4 
+ON 
+    t1.user_id = t4.user_id;  
+```
 
 
