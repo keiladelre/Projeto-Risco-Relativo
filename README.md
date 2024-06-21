@@ -664,8 +664,14 @@ Nos grupos encontrados, valide a hipótese de quais apresentam risco relativo di
 
 1 - Os mais jovens correm um risco maior de não pagamento?
 
+Sim, de acordo com o cálculo de risco relativo, a faixa etária do quartil 1 e 2 possuem respectivamente 1.8 e 1.2 mais chances de ficar devendo, totalizando 515 clientes com flag 1, que já estiveram no cadastro de inadimplente, refletindo 75% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
+
 2 - Pessoas com mais empréstimos ativos correm maior risco de serem maus pagadores.?
+
+Sim, de acordo com o cálculo de risco relativo, a faixa etária do quartil 3 e 4 possuem respectivamente 1.04 e 1.68 mais chances de ficar devendo, totalizando 466 clientes com flag 1, que já estiveram no cadastro de inadimplente, refletindo 68% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
 
 3 - Pessoas que atrasaram seus pagamentos por mais de 90 dias correm maior risco de serem maus pagadores.
 
-Após validar as hipóteses de acordo com o resultado do cálculo do risco relativo, construa uma tabela com os grupos de cada variável que apresenta maior risco de ser um mau pagador
+Sim, de acordo com o cálculo de risco relativo,os clientes do quartil 1, tem 3.7 mais chances de ficar devendo, totalizando 633 clientes com flag 1, que já estiveram no cadastro de inadimplente, refletindo 92% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
+
+Após validar as hipóteses de acordo com o resultado do cálculo do risco relativo, construa uma tabela com os grupos de cada variável que apresenta maior risco de ser um mau pagador.
