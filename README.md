@@ -591,6 +591,60 @@ Compreender a relação que existe entre variáveis ​​numéricas através de
 
 Calcule o risco relativo em cada grupo (Mau pagador, Bom pagador) de cada variável em relação à variável “inadimplência”.
 
+```sql
+-- RISCO RELATIVO COM QUARTIL
+-- Selecionar variáveis para calcular risco relativo
+WITH risk_relative AS (
+  SELECT
+    quartil_debt_ratio, -- coluna de ntile
+    COUNT(*) AS total_customers,  -- count de total user_id
+    SUM(default_flag) AS total_default, -- soma de inadimplentes 
+    AVG(default_flag) AS default_rate -- média de inadimplentes
+  FROM
+    `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+  GROUP BY
+    quartil_debt_ratio
+)
+
+-- Cálculo do risco relativo
+SELECT
+  quartil_debt_ratio,
+  total_customers,
+  total_default,
+  default_rate,
+  default_rate / (SELECT AVG(default_flag) FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`) AS risk_relative
+FROM
+  risk_relative
+ORDER BY
+  quartil_debt_ratio;
+----- resultado da consula: quartil 1 e 2 tem RR > 1
+```
+Obtive o seguinte resultado:
+
+![Risco Relativo debt_ratio](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/3ce3cd50-20d2-453a-b1bf-edfd9d3a52dd)
+
+
+Fiz esse mesmo comando para as variáveis: quartil_last_month_salary, quartil_age, quartil_more_90_days, quartil_using_lines, quartil_number_dependents e quartil_total_loans.
+Conforme os resultadosm abaixo: 
+
+![Risco Relativo Quartil Last month salary](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/77b7a470-e4b7-43c1-b5ca-caf0585c33ce)
+
+
+![Risco Relarivo quartil age](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/aecf1e50-1055-4c47-9fb9-3a8da523f84f)
+
+
+![Risco Relativo more 90 days](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/58308fe3-5cd7-4ca2-a521-d4e5c6b330b9)
+
+
+![Risco Relativo Using Lines](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/a4cabcbb-a3c8-4ca3-82f1-aa78369c21cf)
+
+
+![Risco Relativo number dependents](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/df624e69-9f3d-482a-b4da-e6df184fce43)
+
+
+![Risco Relativo total loans](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/ca581253-946e-40f7-bd78-7eaade8a1248)
+
+
 
 -Validar hipótese
 
