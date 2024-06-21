@@ -627,20 +627,31 @@ Obtive o seguinte resultado:
 Fiz esse mesmo comando para as variáveis: quartil_last_month_salary, quartil_age, quartil_more_90_days, quartil_using_lines, quartil_number_dependents e quartil_total_loans.
 Conforme os resultadosm abaixo: 
 
+- VARIÁVEL QUARTIL_LAST_MONTH_SALARY
+
 ![Risco Relativo Quartil Last month salary](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/77b7a470-e4b7-43c1-b5ca-caf0585c33ce)
 
+
+- VARIÁVEL QUARTIL_AGE
 
 ![Risco Relarivo quartil age](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/aecf1e50-1055-4c47-9fb9-3a8da523f84f)
 
 
+- VARIÁVEL QUARTIL_MORE_90_DAYS
+
 ![Risco Relativo more 90 days](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/58308fe3-5cd7-4ca2-a521-d4e5c6b330b9)
 
+- VARIÁVEL QUARTIL_USING_LINES
 
 ![Risco Relativo Using Lines](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/a4cabcbb-a3c8-4ca3-82f1-aa78369c21cf)
 
 
+- VARIÁVEL QUARTIL_NUMBER_DEPENDENTS
+
 ![Risco Relativo number dependents](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/df624e69-9f3d-482a-b4da-e6df184fce43)
 
+
+- VARIÁVEL QUARTIL_TOTAL_LOANS
 
 ![Risco Relativo total loans](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/ca581253-946e-40f7-bd78-7eaade8a1248)
 
