@@ -800,8 +800,7 @@ Conforme os resultadosm abaixo:
 
 - VARIÁVEL QUARTIL_LAST_MONTH_SALARY
 
-![Risco Relativo Quartil Last month salary](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/77b7a470-e4b7-43c1-b5ca-caf0585c33ce)
-
+![Risco Relativo Quartil Last month salary](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/2317ebad-5dd9-4eb2-96a9-38c8f1ce973b)
 
 - VARIÁVEL QUARTIL_AGE
 
@@ -810,22 +809,22 @@ Conforme os resultadosm abaixo:
 
 - VARIÁVEL QUARTIL_MORE_90_DAYS
 
-![Risco Relativo more 90 days](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/58308fe3-5cd7-4ca2-a521-d4e5c6b330b9)
+![Risco Relativo more 90 days](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/a9fd739e-749d-432d-b1bc-df017441ad4f)
+
 
 - VARIÁVEL QUARTIL_USING_LINES
 
-![Risco Relativo Using Lines](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/a4cabcbb-a3c8-4ca3-82f1-aa78369c21cf)
+![Risco Relativo Using Lines](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/3ea9c3d5-afa0-45ad-8aed-36e1961c0a51)
 
 
 - VARIÁVEL QUARTIL_NUMBER_DEPENDENTS
 
-![Risco Relativo number dependents](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/df624e69-9f3d-482a-b4da-e6df184fce43)
+![Risco Relativo number dependents](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/26b3d192-6244-4696-92b0-207eba270ee6)
 
 
 - VARIÁVEL QUARTIL_TOTAL_LOANS
 
-![Risco Relativo total loans](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/ca581253-946e-40f7-bd78-7eaade8a1248)
-
+![Risco Relativo total loans](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/bcc1c5ba-f859-432e-98c6-6546d9ff9b15)
 
 
 -Validar hipótese
