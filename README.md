@@ -579,6 +579,177 @@ Use histograma ou boxplot no LookerStudio para exibir variáveis ​​numérica
 
 -Calcular quartis, decis ou percentis
 
+```sql
+--- calcular os quartil
+SELECT *
+FROM quartil;
+
+--Calcular o quartil por variável--
+
+ WITH quartil_using_lines AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY using_lines_not_secured_personal_assets DESC) AS quartil_using_lines
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_more_90_days AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY more_90_days_overdue DESC) AS quartil_more_90_days
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_age AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY age) AS quartil_age
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_last_month_salary AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY last_month_salary_integer) AS quartil_last_month_salary
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_debt_ratio AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY debt_ratio DESC) AS quartil_debt_ratio
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+)
+-- Combina os resultados para incluir os quartis calculados separadamente
+SELECT
+  t1.*,
+  ql.quartil_using_lines,
+  qm.quartil_more_90_days,
+  qa.quartil_age,
+  qlms.quartil_last_month_salary,
+  qdr.quartil_debt_ratio
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS t1
+LEFT JOIN 
+  quartil_using_lines AS ql
+ON 
+  t1.user_id = ql.user_id
+LEFT JOIN 
+  quartil_more_90_days AS qm
+ON 
+  t1.user_id = qm.user_id
+LEFT JOIN 
+  quartil_age AS qa
+ON 
+  t1.user_id = qa.user_id
+LEFT JOIN 
+  quartil_last_month_salary AS qlms
+ON 
+  t1.user_id = qlms.user_id
+LEFT JOIN 
+  quartil_debt_ratio AS qdr
+ON 
+  t1.user_id = qdr.user_id;
+```
+
+Em seguida fiz a alteração na tabela união de tabelas:
+
+```sql
+--Atualizando a tabela uniao_tabelas com as colunas de quartil--
+
+  CREATE OR REPLACE TABLE `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS
+
+   WITH quartil_using_lines AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY using_lines_not_secured_personal_assets DESC) AS quartil_using_lines
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_more_90_days AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY more_90_days_overdue DESC) AS quartil_more_90_days
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_age AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY age) AS quartil_age
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_last_month_salary AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY last_month_salary_integer) AS quartil_last_month_salary
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_debt_ratio AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY debt_ratio DESC) AS quartil_debt_ratio
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+)
+-- Combina os resultados para incluir os quartis calculados separadamente
+SELECT
+  t1.*,
+  ql.quartil_using_lines,
+  qm.quartil_more_90_days,
+  qa.quartil_age,
+  qlms.quartil_last_month_salary,
+  qdr.quartil_debt_ratio
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS t1
+LEFT JOIN 
+  quartil_using_lines AS ql
+ON 
+  t1.user_id = ql.user_id
+LEFT JOIN 
+  quartil_more_90_days AS qm
+ON 
+  t1.user_id = qm.user_id
+LEFT JOIN 
+  quartil_age AS qa
+ON 
+  t1.user_id = qa.user_id
+LEFT JOIN 
+  quartil_last_month_salary AS qlms
+ON 
+  t1.user_id = qlms.user_id
+LEFT JOIN 
+  quartil_debt_ratio AS qdr
+ON 
+  t1.user_id = qdr.user_id;
+```
+
+-Fiz também o cálculo de quartil para as variáveis total loans e number dependents:
+
+```sql
+  CREATE OR REPLACE TABLE `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS--
+
+   WITH quartil_total_loans AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY total_loans DESC) AS quartil_total_loans
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+),
+quartil_number_dependents AS (
+  SELECT
+    user_id,
+    NTILE(4) OVER (ORDER BY number_dependents DESC) AS quartil_number_dependents
+  FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+)
+-- Combina os resultados para incluir os quartis calculados separadamente
+SELECT
+  t1.*,
+  qtl.quartil_total_loans,
+  qnp.quartil_number_dependents
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS t1
+LEFT JOIN quartil_total_loans AS qtl
+ON 
+  t1.user_id =qtl.user_id
+LEFT JOIN
+  quartil_number_dependents AS qnp
+ON 
+  t1.user_id =qnp.user_id;
+```
+
 Calcular quartis para variáveis ​​de risco relativo no BigQuery
 
 -Calcular correlação entre variáveis ​​numéricas
