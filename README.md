@@ -824,6 +824,32 @@ Conforme os resultadosm abaixo:
 ![Risco Relativo total loans](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/bcc1c5ba-f859-432e-98c6-6546d9ff9b15)
 
 
+- Você pode usar CASE WHEN para categorizar os quartis de cada variável (idade, últimomêssalário , etc. ) de acordo com o resultado do risco relativo.
+
+```sql
+--Categorizar os quartis de cada variável (idade, último mês salário , etc. ) de acordo com o resultado do risco relativo--
+
+-- Combinação dos resultados e categorização
+
+-- classificando clientes em bom ou mal pagador --
+SELECT
+  t.*,
+  CASE WHEN quartil_age <= 2 THEN 'mau pagador' ELSE 'bom pagador' END AS age_class,
+  CASE WHEN quartil_using_lines = 4 THEN 'mau pagador' ELSE 'bom pagador' END AS using_lines_class,
+  CASE WHEN quartil_more_90_days = 4 THEN 'mau pagador' ELSE 'bom pagador' END AS more_90_days_class,
+  CASE WHEN quartil_last_month_salary <= 3 THEN 'mau pagador' ELSE 'bom pagador' END AS salary_class
+FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+-- atualizar tabela de analise completa com as novas colunas --
+CREATE OR REPLACE TABLE euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS
+  SELECT
+    t.*,
+    CASE WHEN quartil_age <= 2 THEN 'mau pagador' ELSE 'bom pagador' END AS age_class,
+    CASE WHEN quartil_using_lines = 4 THEN 'mau pagador' ELSE 'bom pagador' END AS using_lines_class,
+    CASE WHEN quartil_more_90_days = 4 THEN 'mau pagador' ELSE 'bom pagador' END AS more_90_days_class,
+    CASE WHEN quartil_last_month_salary <= 3 THEN 'mau pagador' ELSE 'bom pagador' END AS salary_class
+  FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+``` 
+
 -Validar hipótese
 
 Nos grupos encontrados, valide a hipótese de quais apresentam risco relativo diferente.
@@ -841,4 +867,91 @@ Sim, de acordo com o cálculo de risco relativo, a faixa etária do quartil 3 e 
 
 Sim, de acordo com o cálculo de risco relativo,os clientes do quartil 1, tem 3.7 mais chances de ficar devendo, totalizando 633 clientes com flag 1, que já estiveram no cadastro de inadimplente, refletindo 92% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
 
-Após validar as hipóteses de acordo com o resultado do cálculo do risco relativo, construa uma tabela com os grupos de cada variável que apresenta maior risco de ser um mau pagador.
+- Após validar as hipóteses de acordo com o resultado do cálculo do risco relativo, construa uma tabela com os grupos de cada variável que apresenta maior risco de ser um mau pagador.
+
+![Tabela Resumo](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/9b2f04a3-31e9-457c-88cf-94c313ee46c2)
+
+
+## Marco 2:
+
+- Processar e preparar a base de dados. Crie variáveis dummy para calcular a pontuação
+
+
+```sql
+-- classificando clientes em bom ou mal pagador sendo 1 para mau pagador e 0 para bom pagador--
+
+SELECT
+  t.*,
+  IF(quartil_age <= 2, 1, 0) AS age_dummy,
+  IF(quartil_using_lines = 4, 1, 0) AS using_lines_dummy,
+  IF(quartil_more_90_days = 4, 1, 0) AS more_90_days_dummy,
+  IF(quartil_last_month_salary <= 3, 1, 0) AS salary_dummy
+FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+
+-- atualizar tabela de analise completa com as novas colunas --
+CREATE OR REPLACE TABLE euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS
+SELECT
+  t.*,
+  IF(quartil_age <= 2, 1, 0) AS age_dummy,
+  IF(quartil_using_lines = 4, 1, 0) AS using_lines_dummy,
+  IF(quartil_more_90_days = 4, 1, 0) AS more_90_days_dummy,
+  IF(quartil_last_month_salary <= 3, 1, 0) AS salary_dummy
+FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+```
+
+- Aplicar segmentação. Calcular a pontuação de risco de cada cliente e utilizar esta pontuação para classificá-los entre bons e maus pagadores
+
+```sql
+  -- Soma das variáveis dummy para obter a pontuação agregada
+  SELECT
+  t.*,
+  IF(quartil_age <= 2, 1, 0) + 
+   IF(quartil_using_lines = 4, 1, 0) + 
+   IF(quartil_more_90_days = 4, 1, 0) + 
+   IF(quartil_last_month_salary <= 3, 1, 0) AS total_score
+   FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+
+   --Criando nova variável na tabela unificada--
+   CREATE OR REPLACE TABLE euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS
+   SELECT
+  t.*,
+  IF(quartil_age <= 2, 1, 0) + 
+   IF(quartil_using_lines = 4, 1, 0) + 
+   IF(quartil_more_90_days = 4, 1, 0) + 
+   IF(quartil_last_month_salary <= 3, 1, 0) AS total_score
+   FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+```
+
+
+- Valide a classificação que você fez usando uma matriz de confusão e a variável default_flag.
+
+Usei a nota de corte 3 para testar o modelo com a matriz de confusão, testando a precisão e obtive o seguinte resultado:
+
+![Teste de precisão nota 3](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/f1cc18d2-ea5b-4987-abfe-bb9b42fd5ef5)
+
+Já com a nota 4, obtive esse resultado:
+
+![Teste de Precisão Nota 4](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/6c5e27ae-5774-4c2e-a147-48a073749448)
+
+
+```sql
+ -- Classificação final com base no ponto de corte
+  
+  WITH classified_users AS (
+  SELECT
+  t.*,
+  IF(total_score >= 4, 'mau pagador', 'bom pagador') AS final_classification
+FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t
+)
+--Testando a precisão do modelo--
+
+SELECT
+  COUNT(*) AS total_records,
+  SUM(CASE WHEN final_classification = 'mau pagador' AND default_flag = 1 THEN 1 ELSE 0 END) AS true_positives,
+  SUM(CASE WHEN final_classification = 'bom pagador' AND default_flag = 0 THEN 1 ELSE 0 END) AS true_negatives,
+  SUM(CASE WHEN final_classification = 'mau pagador' AND default_flag = 0 THEN 1 ELSE 0 END) AS false_positives,
+  SUM(CASE WHEN final_classification = 'bom pagador' AND default_flag = 1 THEN 1 ELSE 0 END) AS false_negatives,
+  (SUM(CASE WHEN final_classification = 'mau pagador' AND default_flag = 1 THEN 1 ELSE 0 END) +
+   SUM(CASE WHEN final_classification = 'bom pagador' AND default_flag = 0 THEN 1 ELSE 0 END)) / COUNT(*) AS precision
+FROM classified_users;
+```
