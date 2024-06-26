@@ -929,7 +929,7 @@ Usei a nota de corte 3 para testar o modelo com a matriz de confusão, testando 
 
 ![Teste de precisão nota 3](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/f1cc18d2-ea5b-4987-abfe-bb9b42fd5ef5)
 
-Já com a nota 4, obtive esse resultado:
+Já com a nota 4, obtive o resultado abaixo, tendo um aumento dna precisão de 81% para 96%, porém diminuindo o número de verdadeiro positivo de 627 para 406 e aumentando o falso negativo de 56 para 277, mas diminuindo o falso positivo de 6.679 para 1.147.
 
 ![Teste de Precisão Nota 4](https://github.com/keiladelre/Projeto-Risco-Relativo-Em-andamento-/assets/171286176/6c5e27ae-5774-4c2e-a147-48a073749448)
 
