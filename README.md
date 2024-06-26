@@ -589,7 +589,7 @@ FROM quartil;
  WITH quartil_using_lines AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY using_lines_not_secured_personal_assets DESC) AS quartil_using_lines
+    NTILE(4) OVER (ORDER BY using_lines_not_secured_personal_assets) AS quartil_using_lines
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 ),
 quartil_more_90_days AS (
@@ -658,13 +658,13 @@ Em seguida fiz a alteração na tabela união de tabelas:
    WITH quartil_using_lines AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY using_lines_not_secured_personal_assets DESC) AS quartil_using_lines
+    NTILE(4) OVER (ORDER BY using_lines_not_secured_personal_assets) AS quartil_using_lines
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 ),
 quartil_more_90_days AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY more_90_days_overdue DESC) AS quartil_more_90_days
+    NTILE(4) OVER (ORDER BY more_90_days_overdue) AS quartil_more_90_days
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 ),
 quartil_age AS (
@@ -682,7 +682,7 @@ quartil_last_month_salary AS (
 quartil_debt_ratio AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY debt_ratio DESC) AS quartil_debt_ratio
+    NTILE(4) OVER (ORDER BY debt_ratio) AS quartil_debt_ratio
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 )
 -- Combina os resultados para incluir os quartis calculados separadamente
@@ -725,13 +725,13 @@ ON
    WITH quartil_total_loans AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY total_loans DESC) AS quartil_total_loans
+    NTILE(4) OVER (ORDER BY total_loans) AS quartil_total_loans
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 ),
 quartil_number_dependents AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY number_dependents DESC) AS quartil_number_dependents
+    NTILE(4) OVER (ORDER BY number_dependents) AS quartil_number_dependents
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 )
 -- Combina os resultados para incluir os quartis calculados separadamente
@@ -750,17 +750,14 @@ ON
   t1.user_id =qnp.user_id;
 ```
 
-Calcular quartis para variáveis ​​de risco relativo no BigQuery
 
--Calcular correlação entre variáveis ​​numéricas
+- Calcular correlação entre variáveis ​​numéricas.
 
 Compreender a relação que existe entre variáveis ​​numéricas através de correlações. Use gráficos de dispersão e linhas de tendência. Você também pode usar o comando CORR no BigQuery
 
 ## Aplicar técnica de análise:
 
--Calcular risco relativo
-
-Calcule o risco relativo em cada grupo (Mau pagador, Bom pagador) de cada variável em relação à variável “inadimplência”.
+- Calcule o risco relativo em cada grupo (Mau pagador, Bom pagador) de cada variável em relação à variável “inadimplência”.
 
 ```sql
 -- RISCO RELATIVO COM QUARTIL
