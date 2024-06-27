@@ -955,3 +955,17 @@ SELECT
    SUM(CASE WHEN final_classification = 'bom pagador' AND default_flag = 0 THEN 1 ELSE 0 END)) / COUNT(*) AS precision
 FROM classified_users;
 ```
+
+- Atualizei a tabela para exportar no Google Colab contendo a coluna final_classification.
+
+```sql
+ -- Atualizando a tabela com a Classificação final com base no ponto de corte
+  
+CREATE OR REPLACE TABLE euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas_final AS
+SELECT
+  t.*,
+  IF(total_score >= 4, 'mau pagador', 'bom pagador') AS final_classification
+FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t;
+```
+
+
