@@ -956,7 +956,7 @@ SELECT
 FROM classified_users;
 ```
 
-- Atualizei a tabela para exportar no Google Colab contendo a coluna final_classification.
+- Atualizei a tabela para importar no Google Colab contendo a coluna final_classification.
 
 ```sql
  -- Atualizando a tabela com a Classificação final com base no ponto de corte
