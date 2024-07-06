@@ -595,7 +595,7 @@ FROM quartil;
 quartil_more_90_days AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY more_90_days_overdue DESC) AS quartil_more_90_days
+    NTILE(4) OVER (ORDER BY more_90_days_overdue) AS quartil_more_90_days
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 ),
 quartil_age AS (
@@ -613,7 +613,7 @@ quartil_last_month_salary AS (
 quartil_debt_ratio AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY debt_ratio DESC) AS quartil_debt_ratio
+    NTILE(4) OVER (ORDER BY debt_ratio) AS quartil_debt_ratio
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 )
 -- Combina os resultados para incluir os quartis calculados separadamente
@@ -646,12 +646,8 @@ LEFT JOIN
   quartil_debt_ratio AS qdr
 ON 
   t1.user_id = qdr.user_id;
-```
 
-Em seguida fiz a alteração na tabela união de tabelas:
-
-```sql
---Atualizando a tabela uniao_tabelas com as colunas de quartil--
+  --Atualizando a tabela uniao_tabelas com as colunas de quartil--
 
   CREATE OR REPLACE TABLE `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas` AS
 
@@ -682,7 +678,7 @@ quartil_last_month_salary AS (
 quartil_debt_ratio AS (
   SELECT
     user_id,
-    NTILE(4) OVER (ORDER BY debt_ratio) AS quartil_debt_ratio
+    NTILE(4) OVER (ORDER BY debt_ratio DESC) AS quartil_debt_ratio
   FROM `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
 )
 -- Combina os resultados para incluir os quartis calculados separadamente
