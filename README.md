@@ -861,11 +861,11 @@ Sim, de acordo com o cálculo de risco relativo, a faixa etária do quartil 1 e 
 
 2 - Pessoas com mais empréstimos ativos correm maior risco de serem maus pagadores.?
 
-Sim, de acordo com o cálculo de risco relativo, a faixa etária do quartil 3 e 4 possuem respectivamente 1.04 e 1.68 mais chances de ficar devendo, totalizando 466 clientes com flag 1, que já estiveram no cadastro de inadimplente, refletindo 68% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
+Não, de acordo com o cálculo de risco relativo, o quartil 4 possui o menor risco relativo 0.59 e o quartil 1 que corresponde ao menor número de empréstimos possui a maior taxa de risco relativo 1.85, com  317 clientes com flag 1, refletindo 46% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
 
 3 - Pessoas que atrasaram seus pagamentos por mais de 90 dias correm maior risco de serem maus pagadores.
 
-Sim, de acordo com o cálculo de risco relativo,os clientes do quartil 1, tem 3.7 mais chances de ficar devendo, totalizando 633 clientes com flag 1, que já estiveram no cadastro de inadimplente, refletindo 92% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
+Sim, de acordo com o cálculo de risco relativo, os clientes do quartil 4, tem 3.68 mais chances de ficar devendo, totalizando 630 clientes com flag 1, refletindo 92% dos clientes que constam na base de registros de clientes que já estiveram inadimplentes.
 
 - Após validar as hipóteses de acordo com o resultado do cálculo do risco relativo, construa uma tabela com os grupos de cada variável que apresenta maior risco de ser um mau pagador.
 
