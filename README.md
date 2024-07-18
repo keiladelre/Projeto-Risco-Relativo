@@ -995,3 +995,7 @@ FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t;
 
 ![Apresentação 9](https://github.com/user-attachments/assets/4960c701-90e5-4bde-8274-128fcb6b7ef1)
 
+
+## Links Úteis:
+
+DashBoard  https://lookerstudio.google.com/s/pa8qxxWJAms
