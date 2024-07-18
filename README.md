@@ -964,4 +964,34 @@ SELECT
 FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t;
 ```
 
+## Conclusão:
+
+![Apresentação_1](https://github.com/user-attachments/assets/19c64fce-900a-4f91-8058-36211f0cb774)
+
+
+![Apresentação_2](https://github.com/user-attachments/assets/42a991c2-8166-4fbc-ad02-fda742709898)
+
+
+![Apresentação 3](https://github.com/user-attachments/assets/b6ad3757-1615-4318-974a-2654029c7741)
+
+
+![Apresentação 4](https://github.com/user-attachments/assets/3a88a96b-3588-4579-8172-b1dd5ffa8503)
+
+
+![Apresentação 5](https://github.com/user-attachments/assets/b2c79706-046e-4dff-9d3c-f3bdee944d20)
+
+
+![Apresentação 6](https://github.com/user-attachments/assets/9c9eba99-3e33-4739-90dd-daff3b12ee08)
+
+
+
+![Apresentação 7](https://github.com/user-attachments/assets/b77a4eb8-746f-4a75-87b4-531399b3bd07)
+
+
+
+![Apresentação 8](https://github.com/user-attachments/assets/fc93e0ee-0139-432a-8250-27600c236729)
+
+
+
+![Apresentação 9](https://github.com/user-attachments/assets/4960c701-90e5-4bde-8274-128fcb6b7ef1)
 
