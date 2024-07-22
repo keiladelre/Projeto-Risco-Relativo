@@ -427,17 +427,15 @@ Nesse caso essa informação pode estar com erro de digitação ou ter como repr
 
 - Verificar e alterar o tipo de dados.
 
-  ```sql
+```sql
   SELECT
   CAST(last_month_salary AS INT64) AS last_month_salary_integer
 FROM
   `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
-  ```
+
 - Criar uma tabela com a nova coluna last_month_salary_integer
 
 --Criando uma nova tabela com a coluna last_month_salary_integer--
---MAS POR QUE PRECISEI FAZER ESSA ALTERAÇÃO NESSA COLUNA ? FIZ NESSA POIS ERA A UNICA FLOAT QUE NÃO TEM PROBLEMA ARREDONDAR AS CASAS DECIMAIS--
-
 CREATE TABLE `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info_new` AS
 SELECT
   user_id,
@@ -447,6 +445,7 @@ SELECT
   CAST(last_month_salary AS INT64) AS last_month_salary_integer,
 FROM
   `euphoric-diode-426013-s0.Projeto_Risco_Relativo.user_info`;
+```
 
 - Criar novas variáveis.
 
@@ -768,7 +767,7 @@ ON
 ```
 
 
-- Calcular correlação entre variáveis ​​numéricas.
+- Calcular correlação entre variáveis ​​numéricas
 
 ```sql
 --Testar as correlações entre as variáveis e default_flag--
