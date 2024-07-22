@@ -1036,6 +1036,6 @@ FROM euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas AS t;
 - DashBoard  
 https://lookerstudio.google.com/s/pa8qxxWJAms
 
-- Apresentação
+- Apresentação  
 https://www.loom.com/share/f3e7017060004f3cafbcbbf831c2d46a?sid=aa3946aa-9d36-4c3e-95db-9b18452b32cb
 
