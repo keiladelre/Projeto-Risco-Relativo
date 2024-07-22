@@ -787,8 +787,23 @@ ON
 
 - Calcular correlação entre variáveis ​​numéricas.
 
+´´´sql
+--Testar as correlações entre as variáveis e default_flag--
+SELECT
+CORR(default_flag,more_90_days_overdue) AS corr_90_days_60_89_day,
+CORR(default_flag,last_month_salary_integer) AS corr_last_month_salaryy,
+CORR(default_flag,using_lines_not_secured_personal_assets) AS corr_using_lines_not_secured_personal_assets,
+CORR(default_flag,age) AS corr_age,
+CORR(default_flag,debt_ratio) AS corr_debt_ratio,
+CORR(default_flag,number_dependents) AS corr_number_dependents,
+FROM 
+  `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
+´´´
 
+![correlação](https://github.com/user-attachments/assets/83e194c8-447c-4d4b-95bc-69fe1d567778)
 
+Os valores de correlação encontrados foram extremamente baixos devido a proporção de apenas 1,89 da base de 36.000 clientes que possui a default_flag 1, indicando os clientes que já tiveram o seu nome no cadastro de inandimplentes.
+ 
 ## Aplicar técnica de análise:
 
 - Calcule o risco relativo em cada grupo (Mau pagador, Bom pagador) de cada variável em relação à variável “inadimplência”.
