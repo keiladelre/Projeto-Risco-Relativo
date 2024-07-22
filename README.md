@@ -596,12 +596,6 @@ Use gráficos de barras no Looker Studio para visualizar variáveis ​​categ�
 ![Gráfico 4](https://github.com/user-attachments/assets/968d6479-faf2-4286-ba08-dcde22a4776a)
 
 
-- Aplicar medidas de tendência central (moda, média, mediana)
-  
-Use as opções da tabela para calcular estatísticas descritivas para ajudar a compreender a distribuição dos dados.
-
-
-
 
 
 -Calcular quartis, decis ou percentis
@@ -772,22 +766,11 @@ LEFT JOIN
 ON 
   t1.user_id =qnp.user_id;
 ```
-![quartil 1](https://github.com/user-attachments/assets/45c016ae-6a1c-439b-bbce-424d5b68b84e)
-
-
-![quartil 2](https://github.com/user-attachments/assets/2e1b19ef-55fc-4daa-a4b3-3371e5aedf6c)
-
-
-![quartil 3](https://github.com/user-attachments/assets/379be72f-d22c-4f5e-a644-ed5d2f1e0342)
-
-
-![quartil 4](https://github.com/user-attachments/assets/c48d39cb-544e-46f0-8256-5d43fbc2f659)
-
 
 
 - Calcular correlação entre variáveis ​​numéricas.
 
-´´´sql
+```sql
 --Testar as correlações entre as variáveis e default_flag--
 SELECT
 CORR(default_flag,more_90_days_overdue) AS corr_90_days_60_89_day,
@@ -798,7 +781,7 @@ CORR(default_flag,debt_ratio) AS corr_debt_ratio,
 CORR(default_flag,number_dependents) AS corr_number_dependents,
 FROM 
   `euphoric-diode-426013-s0.Projeto_Risco_Relativo.uniao_tabelas`
-´´´
+```
 
 ![correlação](https://github.com/user-attachments/assets/83e194c8-447c-4d4b-95bc-69fe1d567778)
 
