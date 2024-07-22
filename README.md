@@ -561,10 +561,39 @@ ON
 
 Use tabelas no Looker Studio para resumir dados em variáveis ​​categóricas.
 
+![Tabelas 1](https://github.com/user-attachments/assets/d306df31-0ef7-4155-a6c5-5405a211c9ce)
+
+
+![Tabelas 2](https://github.com/user-attachments/assets/dd27a7f7-5b6d-4582-b910-9755dbe1c680)
+
+
+![Tabela 3](https://github.com/user-attachments/assets/3ab0cbcf-b7b4-4d88-b139-85a12fecc646)
+
+
+![Tabela 4](https://github.com/user-attachments/assets/646850ce-3176-412d-b8a0-c4eac91127e7)
+
+
+![Tabela 5](https://github.com/user-attachments/assets/186e04e6-f187-47da-acc4-d0a887225091)
+
+
+
+
 
 - Ver variáveis ​​categóricas
   
 Use gráficos de barras no Looker Studio para visualizar variáveis ​​categóricas.
+
+
+![Gráfico 1](https://github.com/user-attachments/assets/3ffb0092-4d28-45bf-ab1c-f51f3ea0cde6)
+
+
+![Gráfico 2](https://github.com/user-attachments/assets/9a58b638-244b-4658-a6a5-4213a42ce48c)
+
+
+![Gráfico 3](https://github.com/user-attachments/assets/1fffc46d-e285-4e2f-8551-c90a4bc50fa0)
+
+
+![Gráfico 4](https://github.com/user-attachments/assets/968d6479-faf2-4286-ba08-dcde22a4776a)
 
 
 - Aplicar medidas de tendência central (moda, média, mediana)
@@ -572,9 +601,7 @@ Use gráficos de barras no Looker Studio para visualizar variáveis ​​categ�
 Use as opções da tabela para calcular estatísticas descritivas para ajudar a compreender a distribuição dos dados.
 
 
-- Ver distribuição
-  
-Use histograma ou boxplot no LookerStudio para exibir variáveis ​​numéricas.
+
 
 
 -Calcular quartis, decis ou percentis
