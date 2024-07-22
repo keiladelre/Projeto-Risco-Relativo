@@ -772,11 +772,22 @@ LEFT JOIN
 ON 
   t1.user_id =qnp.user_id;
 ```
+![quartil 1](https://github.com/user-attachments/assets/45c016ae-6a1c-439b-bbce-424d5b68b84e)
+
+
+![quartil 2](https://github.com/user-attachments/assets/2e1b19ef-55fc-4daa-a4b3-3371e5aedf6c)
+
+
+![quartil 3](https://github.com/user-attachments/assets/379be72f-d22c-4f5e-a644-ed5d2f1e0342)
+
+
+![quartil 4](https://github.com/user-attachments/assets/c48d39cb-544e-46f0-8256-5d43fbc2f659)
+
 
 
 - Calcular correlação entre variáveis ​​numéricas.
 
-Compreender a relação que existe entre variáveis ​​numéricas através de correlações. Use gráficos de dispersão e linhas de tendência. Você também pode usar o comando CORR no BigQuery
+
 
 ## Aplicar técnica de análise:
 
