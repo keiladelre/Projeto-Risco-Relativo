@@ -254,7 +254,7 @@ E obtive o seguinte resultado:
 ![Teste variáveis categóricas](https://github.com/user-attachments/assets/a5d5948c-9546-45e1-9f6c-641be9a18ff3)
 
 
-Totalizou 305.330 linhas, mas a tabela possui 305.335, faltando 5 linhas.
+- Realizando a mesma consulta para a tabela user_info:
 
 ```sql
 --Verificar se existe alguma inconsistência em variável categórica--
@@ -266,7 +266,7 @@ FROM
 GROUP BY 
   sex
 HAVING 
-  COUNT(*) > 1
+  COUNT(*) > 0
 ORDER BY 
   sex;
 ```
