@@ -195,7 +195,7 @@ Encontrado o seguinte resultado:
 
 - Identificar e gerenciar dados fora do escopo da análise.
 
-Realizado o teste de pearson entre as variáveis da tabela loans_detail que possui as informações de atraso no pagamento de parcelas com período entre 30 e 59 dias, 60 a 89 dias e 90 dias de atraso. Foi encontrada uma alta pearson entre essas três variáveis, por esse motivo utilizarei apenas a variável 90 dias de atraso.
+Realizado o teste de correlação entre as variáveis da tabela loans_detail que possui as informações de atraso no pagamento de parcelas com período entre 30 e 59 dias, 60 a 89 dias e 90 dias de atraso. Foi encontrada uma alta correlação entre essas três variáveis, por esse motivo utilizarei apenas a variável 90 dias de atraso.
 
 ```sql
 --Testar as correlações entre as variáveis de tempo de atraso no pagamento das parcelas de empréstimo--
