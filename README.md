@@ -245,13 +245,14 @@ FROM
 GROUP BY 
   loan_type
 HAVING 
-  COUNT(*) > 1
+  COUNT(*) > 0
 ORDER BY 
   loan_type;
 ```
 E obtive o seguinte resultado:
 
-![Variáveis categóricas](https://github.com/keiladelre/Projeto-Risco-Relativo/assets/171286176/9c4daf13-d553-4309-a447-9f228b8cfa26)
+![Teste variáveis categóricas](https://github.com/user-attachments/assets/a5d5948c-9546-45e1-9f6c-641be9a18ff3)
+
 
 Totalizou 305.330 linhas, mas a tabela possui 305.335, faltando 5 linhas.
 
